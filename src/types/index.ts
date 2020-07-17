@@ -34,6 +34,7 @@ export {
   ExtendedAsset,
   IAsset,
   TTicker,
+  TCode,
   TAssetType,
   AssetBalanceObject,
   StoreAsset,
