@@ -4,20 +4,14 @@ import { Brand } from 'utility-types';
 
 export type TTicker = Brand<string, 'Ticker'>;
 export type TSymbol = Brand<string, 'Symbol'>;
+export type TAssetType = 'base' | 'erc20' | 'fiat';
+
 export interface Fiat {
   code: TTicker;
   name: string;
   symbol: TSymbol;
   prefix?: boolean;
 }
-
-export interface IAsset {
-  symbol: TSymbol; // The currency symbol to identify an asset eg. €, $
-  name: string;
-  network?: string;
-}
-
-export type TAssetType = 'base' | 'erc20' | 'fiat';
 
 export interface Asset {
   readonly uuid: TUuid;
