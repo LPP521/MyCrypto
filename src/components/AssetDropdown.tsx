@@ -45,12 +45,11 @@ class AssetOption extends React.PureComponent<OptionComponentProps> {
 class AssetOptionShort extends React.PureComponent<OptionComponentProps> {
   public render() {
     const { option, onSelect } = this.props;
-    const { ticker, symbol, uuid } = option;
-    const ref = ticker ? ticker : symbol;
+    const { ticker, uuid } = option;
     return (
       <>
         <AssetDropdownItem
-          ticker={ref}
+          ticker={ticker}
           uuid={uuid}
           onClick={() => onSelect && onSelect(option, null)}
         />
