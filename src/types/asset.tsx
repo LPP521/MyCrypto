@@ -1,9 +1,9 @@
 import { BigNumber } from 'ethers/utils';
-import { NetworkId, TSymbol, TUuid, AssetSocial } from '@types';
+import { NetworkId, TUuid, AssetSocial } from '@types';
 import { Brand } from 'utility-types';
 
 export type TTicker = Brand<string, 'Ticker'>;
-
+export type TSymbol = Brand<string, 'Symbol'>;
 export interface Fiat {
   code: TTicker;
   name: string;
@@ -12,7 +12,7 @@ export interface Fiat {
 }
 
 export interface IAsset {
-  symbol: TSymbol;
+  symbol: TSymbol; // The currency symbol to identify an asset eg. €, $
   name: string;
   network?: string;
 }
@@ -24,7 +24,6 @@ export interface Asset {
   readonly name: string;
   readonly networkId: NetworkId;
   readonly ticker: TTicker; // The 3 letter curency code to identify an asset.
-  readonly symbol?: TSymbol; // The currency symbol to identify an asset eg. €, $
   readonly type: TAssetType;
   readonly contractAddress?: string;
   readonly decimal?: number;

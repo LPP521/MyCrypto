@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import isEmpty from 'ramda/src/isEmpty';
 
 import { translateRaw } from '@translations';
-import { Asset, TSymbol } from '@types';
+import { Asset, TTicker } from '@types';
 import { AssetDropdownItem, Divider, Dropdown } from '@components';
 import { useEffectOnce } from '@vendor';
 
@@ -26,12 +26,11 @@ const DropdownContainer = styled('div')`
 class AssetOption extends React.PureComponent<OptionComponentProps> {
   public render() {
     const { option, onSelect } = this.props;
-    const { ticker, symbol, name, uuid } = option;
-    const ref = ticker ? ticker : symbol;
+    const { ticker, name, uuid } = option;
     return (
       <>
         <AssetDropdownItem
-          symbol={ref}
+          ticker={ticker}
           uuid={uuid}
           name={name}
           onClick={() => onSelect && onSelect(option, null)}
@@ -51,7 +50,7 @@ class AssetOptionShort extends React.PureComponent<OptionComponentProps> {
     return (
       <>
         <AssetDropdownItem
-          symbol={ref}
+          ticker={ref}
           uuid={uuid}
           onClick={() => onSelect && onSelect(option, null)}
         />
@@ -70,7 +69,7 @@ function AssetDropdown({
   disabled = false,
   fluid = false,
   label
-}: Props<Asset | { name: string; symbol: TSymbol }>) {
+}: Props<Asset | { name: string; ticker: TTicker }>) {
   useEffectOnce(() => {
     // Preselect first value when not provided
     if (isEmpty(selectedAsset) && onSelect && !isEmpty(assets)) {
@@ -83,17 +82,20 @@ function AssetDropdown({
       {label && <Label>{label}</Label>}
       <Dropdown
         placeholder={translateRaw('SEND_ASSETS_ASSET_SELECTION_PLACEHOLDER')}
-        options={assets.map((a) => ({ value: showOnlyTicker ? a.symbol : a.name, ...a }))}
+        options={assets.map((a) => ({ value: showOnlyTicker ? a.ticker : a.name, ...a }))}
         disabled={disabled}
         searchable={searchable}
         onChange={(option: Asset) => onSelect && onSelect(option)}
         optionComponent={showOnlyTicker ? AssetOptionShort : AssetOption}
         value={!isEmpty(selectedAsset) && selectedAsset}
         valueComponent={({ value: option }) => {
-          const { ticker, uuid, symbol, name } = option;
-          const ref = ticker ? ticker : symbol;
+          const { ticker, uuid, name } = option;
           return (
-            <AssetDropdownItem symbol={ref} uuid={uuid} name={!showOnlyTicker ? name : undefined} />
+            <AssetDropdownItem
+              ticker={ticker}
+              uuid={uuid}
+              name={!showOnlyTicker ? name : undefined}
+            />
           );
         }}
       />

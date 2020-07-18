@@ -1,20 +1,20 @@
 import React from 'react';
 
 import { simpleRender, fireEvent } from 'test-utils';
-import { TSymbol, TUuid } from '@types';
+import { TTicker, TUuid } from '@types';
 import AssetDropdownItem, { Props } from '../AssetDropdownItem';
 import { ETHUUID } from '@utils';
 
 const defaultProps: Props = {
-  symbol: 'ETH' as TSymbol,
+  ticker: 'ETH' as TTicker,
   name: 'Ether',
   uuid: ETHUUID as TUuid,
   onClick: jest.fn()
 };
 
-function getComponent({ symbol, uuid, name, onClick }: Props) {
+function getComponent({ ticker, uuid, name, onClick }: Props) {
   return simpleRender(
-    <AssetDropdownItem symbol={symbol} uuid={uuid} name={name} onClick={onClick} />
+    <AssetDropdownItem ticker={ticker} uuid={uuid} name={name} onClick={onClick} />
   );
 }
 
@@ -26,7 +26,7 @@ describe('AssetDropdownItem', () => {
 
   test('it displays the asset symbol and name', async () => {
     const { getByText } = getComponent(defaultProps);
-    expect(getByText(defaultProps.symbol)).toBeDefined();
+    expect(getByText(defaultProps.ticker)).toBeDefined();
     expect(getByText(defaultProps.name!)).toBeDefined();
   });
 

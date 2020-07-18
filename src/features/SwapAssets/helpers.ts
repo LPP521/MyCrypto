@@ -19,8 +19,8 @@ export const getTradeOrder = (assetPair: IAssetPair, account: StoreAccount) => a
     : DexService.instance.getOrderDetailsFrom;
 
   return getOrderDetails(
-    fromAsset.symbol,
-    toAsset.symbol,
+    fromAsset.ticker,
+    toAsset.ticker,
     (isLastChangedTo ? toAmount : fromAmount).toString()
   )
     .then((txs) => Promise.all(txs.map(appendSender(address))))
@@ -36,7 +36,7 @@ export const makeSwapTxConfig = (assets: StoreAsset[]) => (
   const { gasPrice, gasLimit, nonce, data } = transaction;
   const { address, network } = account;
   const baseAsset = getAssetByUUID(assets)(network.baseAsset)!;
-  const asset = getAssetByTicker(assets)(fromAsset.symbol) || baseAsset;
+  const asset = getAssetByTicker(assets)(fromAsset.ticker) || baseAsset;
 
   const txConfig: ITxConfig = {
     from: address,
@@ -81,7 +81,7 @@ export const getAccountsWithAssetBalance = (
       return false;
     }
 
-    const asset = acc.assets.find((x) => x.ticker === fromAsset.symbol);
+    const asset = acc.assets.find((x) => x.ticker === fromAsset.ticker);
     if (!asset) {
       return false;
     }
@@ -101,4 +101,4 @@ export const getUnselectedAssets = (
 ) =>
   !toAsset || !fromAsset
     ? assets
-    : assets.filter((x) => fromAsset.symbol !== x.symbol && toAsset.symbol !== x.symbol);
+    : assets.filter((x) => fromAsset.ticker !== x.ticker && toAsset.ticker !== x.ticker);

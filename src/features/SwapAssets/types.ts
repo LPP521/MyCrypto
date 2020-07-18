@@ -1,12 +1,8 @@
 import { BigNumber } from 'bignumber.js';
 
-import { TSymbol, StoreAccount, ITxObject, ITxStatus, TUuid } from '@types';
+import { Asset, StoreAccount, ITxObject, ITxStatus } from '@types';
 
-export interface ISwapAsset {
-  name: string;
-  symbol: TSymbol;
-  uuid: TUuid;
-}
+export type ISwapAsset = Pick<Asset, 'name' | 'ticker' | 'uuid'>;
 
 export enum LAST_CHANGED_AMOUNT {
   FROM = 'FROM_AMOUNT',

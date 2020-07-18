@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { TSymbol, TUuid } from '@types';
+import { TSymbol, TTicker, TUuid } from '@types';
 import { default as Typography } from './Typography';
 import AssetIcon from './AssetIcon';
 
@@ -15,8 +15,8 @@ const SAssetIconContainer = styled('span')`
 
 interface Props {
   amount: string;
-  symbol: TSymbol;
-  code?: string;
+  code: TTicker;
+  symbol?: TSymbol;
   uuid?: TUuid;
   decimals?: number;
   icon?: boolean;
@@ -28,11 +28,11 @@ function Currency({
   amount,
   symbol,
   uuid,
+  code,
   decimals = 5,
   icon = false,
   bold = false,
   fontSize,
-  code,
   ...props
 }: Props) {
   const format = (value: string, decimalPlaces: number) => {
@@ -55,7 +55,7 @@ function Currency({
       )}
       <Typography bold={bold} fontSize={fontSize}>
         {format(amount, decimals)}
-        {!code && ` ${symbol}`}
+        {!symbol && ` ${code}`}
       </Typography>
     </SContainer>
   );

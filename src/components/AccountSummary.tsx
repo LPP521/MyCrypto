@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { truncate } from '@utils';
-import { TSymbol, TUuid } from '@types';
+import { TUuid, TTicker } from '@types';
+import { DEFAULT_NETWORK_TICKER } from '@config';
+
 import Currency from './Currency';
 import Account from './Account';
 
@@ -10,7 +12,7 @@ interface Props {
   address: string;
   uuid?: TUuid;
   balance?: string;
-  assetSymbol?: string;
+  assetSymbol?: TTicker;
   label?: string;
   hideCurrency?: boolean;
   onClick?(): void;
@@ -44,7 +46,7 @@ function AccountSummary({ address, balance, assetSymbol, uuid, label, onClick }:
       {balance && uuid && (
         <SCurrency
           amount={balance}
-          symbol={(assetSymbol as TSymbol) || ('ETH' as TSymbol)}
+          code={assetSymbol || DEFAULT_NETWORK_TICKER}
           uuid={uuid}
           decimals={4}
           icon={true}
