@@ -12,7 +12,7 @@ class AccountOption extends React.PureComponent<OptionComponentProps> {
           address={option.address}
           balance={option.balance}
           uuid={option.assetUUID}
-          assetSymbol={option.assetSymbol}
+          ticker={option.assetTicker}
           label={option.label}
           onClick={() => onSelect!(option, null)} // Since it's a custom Dropdown we know onSelect is defined
         />

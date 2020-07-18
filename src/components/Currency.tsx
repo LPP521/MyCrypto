@@ -42,8 +42,6 @@ function Currency({
       style: code ? 'currency' : undefined,
       currency: code
     }).format(parseFloat(value));
-    // const multiplier = Math.pow(10, decimalPlaces);
-    // return Math.round(v * multiplier + Number.EPSILON) / multiplier;
   };
 
   return (

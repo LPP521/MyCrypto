@@ -12,7 +12,7 @@ interface Props {
   address: string;
   uuid?: TUuid;
   balance?: string;
-  assetSymbol?: TTicker;
+  ticker?: TTicker;
   label?: string;
   hideCurrency?: boolean;
   onClick?(): void;
@@ -39,14 +39,14 @@ const SAccountWrapper = styled('div')`
 `;
 
 // Display an address with it's balance
-function AccountSummary({ address, balance, assetSymbol, uuid, label, onClick }: Props) {
+function AccountSummary({ address, balance, ticker, uuid, label, onClick }: Props) {
   return (
     <SAccountWrapper onPointerDown={onClick}>
       <SAddress title={label} truncate={truncate} address={address} isCopyable={false} />
       {balance && uuid && (
         <SCurrency
           amount={balance}
-          code={assetSymbol || DEFAULT_NETWORK_TICKER}
+          code={ticker || DEFAULT_NETWORK_TICKER}
           uuid={uuid}
           decimals={4}
           icon={true}

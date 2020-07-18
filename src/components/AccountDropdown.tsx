@@ -3,7 +3,7 @@ import { translateRaw } from '@translations';
 import { formatEther } from 'ethers/utils';
 
 import { AccountSummary, AccountOption, Dropdown } from '@components';
-import { StoreAccount, Asset } from '@types';
+import { StoreAccount, Asset, TTicker } from '@types';
 import { getAccountBalance, getBaseAsset } from '@services/Store';
 import { useEffectOnce } from '@vendor';
 
@@ -21,7 +21,7 @@ interface IAccountDropdownProps {
 
 const sortByLabel = (a: Option, b: Option) => a.label.localeCompare(b.label);
 
-type Option = StoreAccount & { balance: string; assetSymbol: string };
+type Option = StoreAccount & { balance: string; assetTicker: TTicker };
 
 function AccountDropdown({ accounts, name, value, onSelect, asset }: IAccountDropdownProps) {
   const relevantAccounts: Option[] = accounts
@@ -29,7 +29,7 @@ function AccountDropdown({ accounts, name, value, onSelect, asset }: IAccountDro
       ...account,
       balance: formatEther(asset ? getAccountBalance(account, asset) : getAccountBalance(account)),
       assetUUID: asset ? asset.uuid : getBaseAsset(account)!.uuid,
-      assetSymbol: asset ? asset.ticker : getBaseAsset(account)!.ticker
+      assetTicker: asset ? asset.ticker : getBaseAsset(account)!.ticker
     }))
     .sort(sortByLabel);
 
@@ -56,7 +56,7 @@ function AccountDropdown({ accounts, name, value, onSelect, asset }: IAccountDro
             balance={option ? option.balance : balance}
             label={label}
             uuid={assetUUID}
-            assetSymbol={option ? option.assetSymbol : assetSymbol}
+            ticker={option ? option.assetTicker : assetSymbol}
           />
         );
       }}
